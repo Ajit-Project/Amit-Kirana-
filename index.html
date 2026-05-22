@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="hi">
 <head>
+<link rel="manifest" href="manifest.json">
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
@@ -1293,5 +1294,10 @@ function stopVoice(){
   if(navigator.onLine) flushPendingPhotos();
 })();
 </script>
+   <script>
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('service-worker.js');
+}
+   </script>
 </body>
 </html>
