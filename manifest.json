@@ -6,10 +6,11 @@
   "background_color": "#c2410c",
   "theme_color": "#c2410c",
   "icons": [
-    {
-      "src": "app_icon_256x256.png",
-      "sizes": "256x256",
-      "type": "image/png"
-    }
+  {
+    "src": "./app_icon_256x256.png",
+    "sizes": "256x256",
+    "type": "image/png",
+    "purpose": "any maskable"
+  }
   ]
 }
