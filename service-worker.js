@@ -1,1 +1,24 @@
-self.addEventListener('fetch', function() {});
+const CACHE_NAME = "kirana-store-v1";
+
+const urlsToCache = [
+  "./",
+  "./index.html",
+  "./manifest.json",
+  "./app_icon_256x256.png"
+];
+
+self.addEventListener("install", event => {
+  event.waitUntil(
+    caches.open(CACHE_NAME)
+      .then(cache => cache.addAll(urlsToCache))
+  );
+});
+
+self.addEventListener("fetch", event => {
+  event.respondWith(
+    caches.match(event.request)
+      .then(response => {
+        return response || fetch(event.request);
+      })
+  );
+});
