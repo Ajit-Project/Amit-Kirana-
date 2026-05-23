@@ -1,4 +1,4 @@
-const CACHE_NAME = "kirana-store-v1";
+const CACHE_NAME = "kirana-store-v2";
 
 const urlsToCache = [
   "./",
@@ -12,13 +12,24 @@ self.addEventListener("install", event => {
     caches.open(CACHE_NAME)
       .then(cache => cache.addAll(urlsToCache))
   );
+  self.skipWaiting();
+});
+
+self.addEventListener("activate", event => {
+  event.waitUntil(
+    caches.keys().then(keys => {
+      return Promise.all(
+        keys.filter(key => key !== CACHE_NAME)
+            .map(key => caches.delete(key))
+      );
+    })
+  );
+  self.clients.claim();
 });
 
 self.addEventListener("fetch", event => {
   event.respondWith(
-    caches.match(event.request)
-      .then(response => {
-        return response || fetch(event.request);
-      })
+    fetch(event.request)
+      .catch(() => caches.match(event.request))
   );
 });
